@@ -29,7 +29,7 @@ var dateToMinutes = function (rawDate) {
 var checkAvailable = function (thief, gang, minute) {
     var gaps = gang[thief];
     for (var i = 0; i < gaps.length; i++) {
-        if ((minute >= gaps[i].from) && (minute <= gaps[i].to)) {
+        if ((minute >= gaps[i].from) && (minute < gaps[i].to)) {
             return false;
         }
     }
@@ -70,6 +70,10 @@ module.exports.getAppropriateMoment = function (json, minDuration, workingHours)
         var currentEnd = bankOpened[i].to;
         var clock = 0;
         for (var j = currentStart; j <= currentEnd; j++) {
+            if (clock === minDuration) {
+                momentMinute = j - minDuration;
+                break;
+            }
             var allAvailable = true;
             for (var k = 0; k < thiefs.length; k++) {
                 if (!checkAvailable(thiefs[k], gang, j)) {
@@ -80,10 +84,6 @@ module.exports.getAppropriateMoment = function (json, minDuration, workingHours)
             }
             if (allAvailable) {
                 clock += 1;
-            }
-            if (clock === minDuration) {
-                momentMinute = j - minDuration;
-                break;
             }
         }
         if (momentMinute > -1) {

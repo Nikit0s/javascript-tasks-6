@@ -14,11 +14,18 @@ module.exports = function () {
             var numberToDay = {
                 0: 'ПН',
                 1: 'ВТ',
-                2: 'СР'
+                2: 'СР',
+                3: 'ЧТ'
             };
-            var day = parseInt(minutesDate / (60 * 24));
-            minutesDate -= day * 60 * 24;
-            day = numberToDay[day];
+            var day = minutesDate / (60 * 24);
+            if (day < 0) {
+                day = 'СБ';
+                minutesDate += 60*24
+            } else {
+                day = parseInt(minutesDate / (60 * 24));
+                minutesDate -= day * 60 * 24;
+                day = numberToDay[day];
+            }
             var hours = parseInt(minutesDate / 60);
             minutesDate -= hours * 60;
             hours = hours.toString();
