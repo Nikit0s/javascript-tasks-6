@@ -20,7 +20,7 @@ module.exports = function () {
             var day = minutesDate / (60 * 24);
             if (day < 0) {
                 day = 'СБ';
-                minutesDate += 60*24
+                minutesDate += 60 * 24;
             } else {
                 day = parseInt(minutesDate / (60 * 24));
                 minutesDate -= day * 60 * 24;
