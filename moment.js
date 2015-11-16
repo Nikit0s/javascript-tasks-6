@@ -1,4 +1,11 @@
 'use strict';
+var validTime = function(time) {
+    var result = time.toString();
+    if (result.length === 1) {
+        result = '0' + result;
+    }
+    return result;
+};
 
 module.exports = function () {
     return {
@@ -28,14 +35,8 @@ module.exports = function () {
             }
             var hours = parseInt(minutesDate / 60);
             minutesDate -= hours * 60;
-            hours = hours.toString();
-            if (hours.length === 1) {
-                hours = '0' + hours;
-            }
-            var minutes = minutesDate.toString();
-            if (minutes.length === 1) {
-                minutes = '0' + minutes;
-            }
+            hours = validTime(hours);
+            var minutes = validTime(minutesDate);
             var result = pattern.replace('%DD', day);
             result = result.replace('%HH', hours);
             result = result.replace('%MM', minutes);

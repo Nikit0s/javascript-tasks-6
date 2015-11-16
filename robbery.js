@@ -1,12 +1,13 @@
 'use strict';
 
 var moment = require('./moment');
+var minutesInDay = 60 * 24;
 
 var dateToMinutes = function (rawDate) {
     var daysToNumber = {
         'ПН': 0,
-        'ВТ': 60 * 24,
-        'СР': 60 * 48
+        'ВТ': minutesInDay,
+        'СР': minutesInDay * 2
     };
     var re = /[ \:]/;
     var splittedDate = rawDate.split(re);
@@ -58,8 +59,8 @@ module.exports.getAppropriateMoment = function (json, minDuration, workingHours)
     var workingEnd = dateToMinutes(workingHours.to);
     for (var i = 0; i < 3; i++) {
         var currentDay = {
-            from: i * 60 * 24 + workingStart,
-            to: i * 60 * 24 + workingEnd
+            from: i * minutesInDay + workingStart,
+            to: i * minutesInDay + workingEnd
         };
         bankOpened.push(currentDay);
     }
