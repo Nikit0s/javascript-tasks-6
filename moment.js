@@ -1,5 +1,5 @@
 'use strict';
-var validTime = function(time) {
+var validTime = function (time) {
     var result = time.toString();
     if (result.length === 1) {
         result = '0' + result;
